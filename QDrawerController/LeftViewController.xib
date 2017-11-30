@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LeftViewController" customModule="QDrawerController" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="Wv1-Qf-7Yd" id="cR5-Im-wyg"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qq_bg.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Bzg-Di-G2l">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="Bzg-Di-G2l" secondAttribute="height" multiplier="25:16" id="FNV-2I-jRW"/>
+                    </constraints>
+                </imageView>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wv1-Qf-7Yd">
+                    <rect key="frame" x="0.0" y="240" width="375" height="427"/>
+                    <color key="backgroundColor" red="0.19247555732727051" green="0.71993035078048706" blue="0.9637565016746521" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="W0Z-MT-Sxc"/>
+                        <outlet property="delegate" destination="-1" id="F34-MX-GBb"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Wv1-Qf-7Yd" secondAttribute="bottom" id="3y0-Ub-tlf"/>
+                <constraint firstAttribute="trailing" secondItem="Bzg-Di-G2l" secondAttribute="trailing" id="5M6-2B-c9t"/>
+                <constraint firstItem="Bzg-Di-G2l" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="BtZ-Hq-gKT"/>
+                <constraint firstItem="Wv1-Qf-7Yd" firstAttribute="top" secondItem="Bzg-Di-G2l" secondAttribute="bottom" id="LN9-up-2Zo"/>
+                <constraint firstItem="Wv1-Qf-7Yd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TBH-4N-EN5"/>
+                <constraint firstAttribute="trailing" secondItem="Wv1-Qf-7Yd" secondAttribute="trailing" id="jlg-7w-VCr"/>
+                <constraint firstItem="Bzg-Di-G2l" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qaW-0n-3fx"/>
+            </constraints>
+            <point key="canvasLocation" x="25.5" y="51.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="qq_bg.jpg" width="724" height="540"/>
+    </resources>
+</document>
