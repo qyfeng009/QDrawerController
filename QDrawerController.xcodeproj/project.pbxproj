@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		343971251FCEBC1A00AF3095 /* qq_bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 343971241FCEBC1A00AF3095 /* qq_bg.jpg */; };
+		34849C711FCFD0BE00B4BDE1 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 34849C701FCFD0BE00B4BDE1 /* README.md */; };
 		348F7C071FC507BB00983A58 /* QDrawerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F7C061FC507BB00983A58 /* QDrawerController.swift */; };
 		348F7C0B1FC50ADA00983A58 /* qq@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 348F7C0A1FC50ADA00983A58 /* qq@3x.png */; };
 		348F7C0E1FC50E5300983A58 /* LeftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 348F7C0C1FC50E5300983A58 /* LeftViewController.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		343971241FCEBC1A00AF3095 /* qq_bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = qq_bg.jpg; sourceTree = "<group>"; };
+		34849C701FCFD0BE00B4BDE1 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		348F7C061FC507BB00983A58 /* QDrawerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QDrawerController.swift; sourceTree = "<group>"; };
 		348F7C0A1FC50ADA00983A58 /* qq@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "qq@3x.png"; sourceTree = "<group>"; };
 		348F7C0C1FC50E5300983A58 /* LeftViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 		34DEB7951FC42F090038B825 = {
 			isa = PBXGroup;
 			children = (
+				34849C701FCFD0BE00B4BDE1 /* README.md */,
 				34DEB7A01FC42F090038B825 /* QDrawerController */,
 				34DEB79F1FC42F090038B825 /* Products */,
 				348F7C141FC5179500983A58 /* Frameworks */,
@@ -171,6 +174,7 @@
 			files = (
 				348F7C0B1FC50ADA00983A58 /* qq@3x.png in Resources */,
 				3491B9DE1FCD60C700C7BE8A /* RightViewController.xib in Resources */,
+				34849C711FCFD0BE00B4BDE1 /* README.md in Resources */,
 				34DEB7AC1FC42F090038B825 /* LaunchScreen.storyboard in Resources */,
 				348F7C0F1FC50E5300983A58 /* LeftViewController.xib in Resources */,
 				34DEB7A91FC42F090038B825 /* Assets.xcassets in Resources */,
