@@ -54,13 +54,13 @@ extension LeftViewController: UITableViewDataSource, UITableViewDelegate {
 
         if indexPath.row == 0 {
             // 切换 centerVC
-            self.q_drawerController.setCenterVC(newCenterVC: UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!)
+            self.qDrawerController.setCenterVC(newCenterVC: UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!)
         } else if indexPath.row == 1 {
             // 切换 centerVC
-            self.q_drawerController.setCenterVC(newCenterVC: BViewController())
+            self.qDrawerController.setCenterVC(newCenterVC: BViewController())
         } else {
             // 跳转到指定 VC
-            self.q_drawerController.didSelectedVC(didSelectedVC: CViewController())
+            self.qDrawerController.didSelectedVC(didSelectedVC: CViewController())
         }
     }
 

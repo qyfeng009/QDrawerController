@@ -42,8 +42,6 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
         addChildViewController(centerVC)
         addChildViewController(rightDrawerVC)
         rightDrawerVC.view.isHidden = true
-
-
     }
 
     init(centerVC: UIViewController, leftDrawerVC: UIViewController, maxLeftDrawerWidth: CGFloat, rightDrawerVC: UIViewController, maxRightDrawerWidth: CGFloat) {
@@ -105,16 +103,15 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
         return panGesture
     }()
 
-
     // MARK: - 添加边缘侧滑手势(左边缘侧滑)
     private func addScreenEdgePanGestureREcognizerToView(view: UIView) {
-        if (leftDrawerVC != nil) {
+        if leftDrawerVC != nil {
             let edgeLeftPanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgePanGesture(_:)))
             edgeLeftPanGesture.edges = UIRectEdge.left
             edgeLeftPanGesture.delegate = self
             view.addGestureRecognizer(edgeLeftPanGesture)
         }
-        if (rightDrawerVC != nil) {
+        if rightDrawerVC != nil {
             let edgeRightPanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(edgePanGesture(_:)))
             edgeRightPanGesture.edges = UIRectEdge.right
             edgeRightPanGesture.delegate = self
@@ -125,56 +122,56 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
     @objc private func edgePanGesture(_ edgePanGesture: UIScreenEdgePanGestureRecognizer) {
         let offsetX = edgePanGesture.translation(in: edgePanGesture.view).x
         if edgePanGesture.state == UIGestureRecognizerState.began {
-
             self.centerVC?.view.addSubview(coverButton)
             self.coverButton.isHidden = false
-
             if offsetX >= 0 {
                 self.leftDrawerVC?.view.isHidden = false
                 self.openSide = QDrawerSide.left
-            }
-            if offsetX < 0 {
+            } else {
                 self.rightDrawerVC?.view.isHidden = false
                 self.openSide = QDrawerSide.right
             }
         }
         if edgePanGesture.state == UIGestureRecognizerState.changed {
-
-            UIView.animate(withDuration: 0.13, animations: {
-                if self.openSide == .left && (offsetX >= 0 && offsetX <= self.maxLeftDrawerWidth) {
-                    self.centerVC?.view.transform = CGAffineTransform(translationX: max(offsetX, 0), y: 0)
-                    self.leftDrawerVC?.view.transform = CGAffineTransform(translationX: (-self.maxLeftDrawerWidth / 2 + offsetX/2), y: 0)
-                    self.coverButton.backgroundColor = UIColor.black.withAlphaComponent(abs((offsetX / self.maxLeftDrawerWidth) * 0.3))
-                }
-                if self.openSide == .right && (offsetX <= 0 && offsetX >= -self.maxRightDrawerWidth) {
-                    self.rightDrawerVC?.view.transform = CGAffineTransform(translationX: self.screenWidth + offsetX, y: 0)
-                    self.coverButton.backgroundColor = UIColor.black.withAlphaComponent((abs(offsetX / self.maxRightDrawerWidth) * 0.3))
-                }
-            })
-
-        } else if (edgePanGesture.state == UIGestureRecognizerState.ended
+            edgePanGestureChanged(offsetX: offsetX, state: edgePanGesture.state)
+        } else if edgePanGesture.state == UIGestureRecognizerState.ended
             || edgePanGesture.state == UIGestureRecognizerState.failed
-            || edgePanGesture.state == UIGestureRecognizerState.cancelled) {
-            if openSide == .left {
-                if offsetX >= maxLeftDrawerWidth * 0.5 {
-                    openLeftDrawer()
-                } else {
-                    closeDrawer()
-                }
+            || edgePanGesture.state == UIGestureRecognizerState.cancelled {
+            edgePanGestureOff(offsetX: offsetX, state: edgePanGesture.state)
+        }
+    }
+    private func edgePanGestureChanged(offsetX: CGFloat, state: UIGestureRecognizerState) {
+        UIView.animate(withDuration: 0.13, animations: {
+            if self.openSide == .left && (offsetX >= 0 && offsetX <= self.maxLeftDrawerWidth) {
+                self.centerVC?.view.transform = CGAffineTransform(translationX: max(offsetX, 0), y: 0)
+                self.leftDrawerVC?.view.transform = CGAffineTransform(translationX: (-self.maxLeftDrawerWidth / 2 + offsetX/2), y: 0)
+                self.coverButton.backgroundColor = UIColor.black.withAlphaComponent(abs((offsetX / self.maxLeftDrawerWidth) * 0.3))
             }
-            if openSide == .right {
-                if offsetX <= -maxRightDrawerWidth * 0.5 {
-                    openRightDrawer()
-                } else {
-                    closeDrawer()
-                }
+            if self.openSide == .right && (offsetX <= 0 && offsetX >= -self.maxRightDrawerWidth) {
+                self.rightDrawerVC?.view.transform = CGAffineTransform(translationX: self.screenWidth + offsetX, y: 0)
+                self.coverButton.backgroundColor = UIColor.black.withAlphaComponent((abs(offsetX / self.maxRightDrawerWidth) * 0.3))
             }
-
-            if edgePanGesture.state == UIGestureRecognizerState.ended {
-                self.view.addGestureRecognizer(closePanGesture)
+        })
+    }
+    private func edgePanGestureOff(offsetX: CGFloat, state: UIGestureRecognizerState) {
+        if openSide == .left {
+            if offsetX >= maxLeftDrawerWidth * 0.5 {
+                openLeftDrawer()
             } else {
-                self.view.removeGestureRecognizer(closePanGesture)
+                closeDrawer()
             }
+        }
+        if openSide == .right {
+            if offsetX <= -maxRightDrawerWidth * 0.5 {
+                openRightDrawer()
+            } else {
+                closeDrawer()
+            }
+        }
+        if state == UIGestureRecognizerState.ended {
+            self.view.addGestureRecognizer(closePanGesture)
+        } else {
+            self.view.removeGestureRecognizer(closePanGesture)
         }
     }
 
@@ -228,7 +225,7 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
             return
         }
         let oldCenterVC = self.centerVC
-        if (oldCenterVC != nil) {
+        if oldCenterVC != nil {
             oldCenterVC?.willMove(toParentViewController: nil)
             oldCenterVC?.view.removeFromSuperview()
             oldCenterVC?.removeFromParentViewController()
@@ -238,7 +235,7 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
         self.centerVC?.view.transform = CGAffineTransform(translationX: maxLeftDrawerWidth, y: 0)
         self.view.addSubview((self.centerVC?.view)!)
         self.view.bringSubview(toFront: (self.centerVC?.view)!)
-        self.centerVC?.view.autoresizingMask = UIViewAutoresizing(rawValue: UIViewAutoresizing.RawValue(UInt8(UIViewAutoresizing.flexibleWidth.rawValue) | UInt8(UIViewAutoresizing.flexibleWidth.rawValue)))
+        self.centerVC?.view.autoresizingMask = UIViewAutoresizing([.flexibleWidth, .flexibleHeight])
 
         if centerVC is UITabBarController {
             for childrenVC in (centerVC?.childViewControllers)! {
@@ -248,7 +245,7 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
             addScreenEdgePanGestureREcognizerToView(view: (centerVC?.view)!)
         }
         self.centerVC?.view.addSubview(coverButton)
-        if (rightDrawerVC != nil) {
+        if rightDrawerVC != nil {
             self.view.bringSubview(toFront: (rightDrawerVC?.view)!)
         }
 
@@ -274,14 +271,14 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
     // MARK: - 打开侧页面
     /// 打开左侧页面
     open func openLeftDrawer() {
-        if (leftDrawerVC != nil) {
+        if leftDrawerVC != nil {
             openSide = .left
             openDrawer()
         }
     }
     /// 打开右侧页面
     open func openRightDrawer() {
-        if (rightDrawerVC != nil) {
+        if rightDrawerVC != nil {
             openSide = .right
             openDrawer()
         }
@@ -310,13 +307,12 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 self.rightDrawerVC?.view.transform = CGAffineTransform(translationX: self.screenWidth-self.maxRightDrawerWidth, y: 0)
             }
             self.coverButton.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        }) { (finish: Bool) in
+        }, completion: {(finish: Bool) in
             self.view.addGestureRecognizer(self.closePanGesture)
-        }
+        })
     }
     // MARK: - 关闭侧页面
     @objc private func closeDrawer() {
-
         UIView.animate(withDuration: 0.15, delay: 0, options: UIViewAnimationOptions.curveEaseInOut, animations: {
             if self.openSide == QDrawerSide.left {
                 self.leftDrawerVC?.view.transform = CGAffineTransform(translationX: -self.maxLeftDrawerWidth/2, y: 0)
@@ -326,23 +322,21 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
                 self.rightDrawerVC?.view.transform = CGAffineTransform(translationX: self.screenWidth, y: 0)
             }
             self.coverButton.backgroundColor = UIColor.black.withAlphaComponent(0)
-        }) { (finish: Bool) in
+        }, completion: {(finish: Bool) in
             self.leftDrawerVC?.view.isHidden = true
             self.rightDrawerVC?.view.isHidden = true
             self.coverButton.isHidden = true
             self.coverButton.removeFromSuperview()
             self.view.removeGestureRecognizer(self.closePanGesture)
             self.openSide = QDrawerSide.none
-        }
+        })
     }
 
     // MARK: - 手势代理, navigationController 的二级页面时，不响应 QDrawerController 的手势
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if centerVC is UITabBarController {
-            for childrenVC in (centerVC?.childViewControllers)! {
-                if childrenVC.childViewControllers.count > 1 {
-                    return false
-                }
+            for childrenVC in (centerVC?.childViewControllers)! where childrenVC.childViewControllers.count > 1 {
+                return false
             }
         } else if centerVC is UINavigationController {
             if (centerVC?.childViewControllers.count)! > 1 {
@@ -361,8 +355,6 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
         return true
     }
 
-
-
     // MARK: - 状态栏变化处理 ******************
     enum QDrawerSide {
         case none
@@ -370,7 +362,7 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
         case right
     }
     private var openSide: QDrawerSide? = QDrawerSide.none {
-        didSet{
+        didSet {
             setNeedsStatusBarAppearanceUpdateIfSupported()
         }
     }
@@ -415,12 +407,9 @@ class QDrawerController: UIViewController, UIGestureRecognizerDelegate {
     }
 }
 
-
-
-
 // MARK: - UIViewController 扩展，方便调用 QDrawerController 
 extension UIViewController {
-    var q_drawerController: QDrawerController {
+    var qDrawerController: QDrawerController {
         var drawerController: QDrawerController?
         
         var parentVC = self.parent

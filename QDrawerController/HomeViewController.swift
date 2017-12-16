@@ -21,7 +21,7 @@ class HomeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func openLeftDrawer(_ sender: Any) {
-        self.q_drawerController.openLeftDrawer()
+        self.qDrawerController.openLeftDrawer()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -32,7 +32,7 @@ class HomeViewController: UIViewController {
     }
 
     @IBAction func search(_ sender: Any) {
-        self.q_drawerController.openRightDrawer()
+        self.qDrawerController.openRightDrawer()
     }
     
 }
