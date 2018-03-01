@@ -18,6 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
 
         let tabBarVC = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        //代码加载TabBarController 的 childrenControllers 测试
+        /*
+        let vc = UIViewController()
+        vc.view.backgroundColor = .red
+        let naV = UINavigationController(rootViewController: vc)
+        let tabBarVC = TBC([naV])
+ */
+
         let homeVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController")
         let leftVC = LeftViewController(nibName: "LeftViewController", bundle: nil)
         let rightVC = RightViewController()

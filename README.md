@@ -14,6 +14,20 @@ init(centerVC: UIViewController, rightDrawerVC: UIViewController, maxRightDrawer
 init(centerVC: UIViewController, leftDrawerVC: UIViewController, maxLeftDrawerWidth: CGFloat, rightDrawerVC: UIViewController, maxRightDrawerWidth: CGFloat)
 ```
 ```
+注：如果centerVC 是 TabBarController 且不在 storyBoard segue 设置 viewControllers，
+代码设置 TabBarController viewControllers时, 不要在viewDidLoad中设置, 需要重新 下面两个方法，在初始化 TabBarController 时 传入 TabBarController 的 childViewControllers。
+因为在 QDrawerController 中需要给 TabBarController 的 childViewControllers添加手势时，如果不在TabBarController的初始化时传入childViewControllers，则无法给 childViewControllers 添加侧滑手势
+
+init(_ childViewControllers: [UIViewController]) {
+super.init(nibName: nil, bundle: nil)
+self.viewControllers = childViewControllers
+}
+required init?(coder aDecoder: NSCoder) {
+super.init(coder: aDecoder)
+}
+
+```
+```
 重新设置 centerVC
 open func setCenterVC(newCenterVC: UIViewController)
 eg. self.q_drawerController.setCenterVC(newCenterVC: UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()!)
