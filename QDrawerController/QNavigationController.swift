@@ -78,10 +78,10 @@ class QNavigationController: UINavigationController, UINavigationControllerDeleg
 
 
     /// 获取 topViewController 处理状态栏的变化
-    override var childViewControllerForStatusBarStyle: UIViewController? {
+    override var childForStatusBarStyle: UIViewController? {
         return self.topViewController
     }
-    override var childViewControllerForStatusBarHidden: UIViewController? {
+    override var childForStatusBarHidden: UIViewController? {
         return self.topViewController
     }
 

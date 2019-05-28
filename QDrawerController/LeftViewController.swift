@@ -37,7 +37,7 @@ extension LeftViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.backgroundColor = UIColor(red: 49/256, green: 184/256, blue: 246/256, alpha: 1)
-        cell.selectionStyle = UITableViewCellSelectionStyle.blue
+        cell.selectionStyle = UITableViewCell.SelectionStyle.blue
         if indexPath.row == 0 {
             cell.textLabel?.text = "第 \(indexPath.row) 行, 切换 centerVC 样式1"
         } else if indexPath.row == 1 {
